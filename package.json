@@ -1,0 +1,13 @@
+{
+  "name": "xuntos",
+  "version": "1.0.0",
+  "description": "Plataforma de colaboración entre estudantes en galego - Con backend e frontend",
+  "scripts": {
+    "install-servidor": "cd servidor && npm install",
+    "iniciar": "cd servidor && node server.js",
+    "dev": "cd servidor && node server.js"
+  },
+  "keywords": ["galego", "estudantes", "colaboración", "educación"],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xuntos - Plataforma de Colaboración entre Estudantes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cabeceira da aplicación -->
+    <header>
+        <div class="container">
+            <h1>📚 Xuntos</h1>
+            <nav id="main-nav" style="display: none;">
+                <button class="nav-btn" data-view="lista-usuarios">Usuarios</button>
+                <button class="nav-btn" data-view="meu-perfil">O meu perfil</button>
+                <button class="nav-btn" data-view="conversas">Conversas</button>
+            </nav>
+            <div class="usuario-actual" style="display: none;">
+                <img id="foto-usuario-actual" class="foto-perfil-pequena" src="" alt="" style="display: none;">
+                <span id="nome-usuario-actual"></span>
+                <button id="btn-pechar-sesion" class="btn btn-pequeno">🚪 Pechar sesión</button>
+                <button id="btn-toggle-tema" class="btn btn-pequeno">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contedor principal -->
+    <main class="container">
+        <!-- Vista: Login -->
+        <div id="vista-login" class="vista">
+            <div class="card centro">
+                <h2>🔐 Iniciar Sesión</h2>
+                <p>Benvido/a de volta a Xuntos!</p>
+
+                <div class="form-grupo">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" placeholder="exemplo@xuntos.gal" />
+                </div>
+
+                <div class="form-grupo">
+                    <label for="login-password">Contraseña:</label>
+                    <input type="password" id="login-password" placeholder="********" />
+                </div>
+
+                <div id="login-erro" class="mensaxe-erro oculto"></div>
+
+                <button id="btn-login" class="btn btn-primario">Iniciar Sesión</button>
+
+                <div class="separador">ou</div>
+
+                <p>Non tes conta? <a href="#" id="link-rexistro">Rexístrate aquí</a></p>
+
+                <div class="info-demo">
+                    <p><strong>👤 Usuarios de demostración:</strong></p>
+                    <p>Email: maria@xuntos.gal, carlos@xuntos.gal, laura@xuntos.gal...</p>
+                    <p>Contraseña: demo123</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista: Rexistro -->
+        <div id="vista-rexistro" class="vista oculto">
+            <div class="card centro">
+                <h2>📝 Crear Conta</h2>
+                <p>Únete á comunidade de estudantes!</p>
+
+                <div class="form-grupo">
+                    <label for="rexistro-nome">Nome completo:</label>
+                    <input type="text" id="rexistro-nome" placeholder="O teu nome" />
+                </div>
+
+                <div class="form-grupo">
+                    <label for="rexistro-email">Email:</label>
+                    <input type="email" id="rexistro-email" placeholder="exemplo@xuntos.gal" />
+                </div>
+
+                <div class="form-grupo">
+                    <label for="rexistro-password">Contraseña:</label>
+                    <input type="password" id="rexistro-password" placeholder="Mínimo 6 caracteres" />
+                </div>
+
+                <div class="form-grupo">
+                    <label for="rexistro-password-confirm">Confirmar contraseña:</label>
+                    <input type="password" id="rexistro-password-confirm" placeholder="Repite a contraseña" />
+                </div>
+
+                <div id="rexistro-erro" class="mensaxe-erro oculto"></div>
+
+                <button id="btn-rexistro" class="btn btn-primario">Crear Conta</button>
+
+                <div class="separador">ou</div>
+
+                <p>Xa tes conta? <a href="#" id="link-login">Inicia sesión aquí</a></p>
+            </div>
+        </div>
+
+        <!-- Vista: Lista de usuarios -->
+        <div id="vista-lista-usuarios" class="vista oculto">
+            <h2>Todos os usuarios</h2>
+            <div id="lista-usuarios" class="grella-usuarios"></div>
+        </div>
+
+        <!-- Vista: Meu perfil -->
+        <div id="vista-meu-perfil" class="vista oculto">
+            <h2>O meu perfil</h2>
+            <div class="card">
+                <button id="btn-editar-perfil" class="btn btn-secundario">✏️ Editar perfil</button>
+
+                <div id="perfil-visualizacion">
+                    <div class="perfil-cabeceira-info">
+                        <img id="perfil-foto" class="foto-perfil-grande" src="" alt="">
+                        <div>
+                            <h3 id="perfil-nome"></h3>
+                        </div>
+                    </div>
+
+                    <div class="seccion-perfil">
+                        <h4>Sobre min</h4>
+                        <p id="perfil-descricion" class="texto-placeholder">Non hai descrición aínda...</p>
+                    </div>
+
+                    <div class="seccion-perfil">
+                        <h4>Asignaturas que domino</h4>
+                        <div id="perfil-asignaturas" class="lista-asignaturas">
+                            <p class="texto-placeholder">Non hai asignaturas aínda...</p>
+                        </div>
+                    </div>
+
+                    <div class="seccion-perfil">
+                        <h4>Os meus apuntes</h4>
+                        <div id="perfil-apuntes" class="lista-apuntes">
+                            <p class="texto-placeholder">Non hai apuntes aínda...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de edición (oculto por defecto) -->
+                <div id="perfil-edicion" class="oculto">
+                    <div class="form-grupo">
+                        <label>Foto de perfil:</label>
+                        <div class="foto-perfil-edicion">
+                            <img id="edit-foto-preview" class="foto-perfil-grande" src="" alt="">
+                            <input type="file" id="input-foto-perfil" class="oculto" accept="image/*" />
+                            <button id="btn-cambiar-foto" class="btn btn-pequeno">📷 Cambiar foto</button>
+                            <button id="btn-eliminar-foto" class="btn btn-pequeno btn-secundario">✕ Eliminar foto</button>
+                        </div>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Sobre min e o que estudo:</label>
+                        <textarea id="edit-descricion" rows="4" placeholder="Escribe sobre ti e os teus estudos..."></textarea>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Asignaturas que domino:</label>
+                        <div id="lista-asignaturas-edicion"></div>
+                        <div class="flex-row">
+                            <input type="text" id="nova-asignatura" placeholder="Nome da asignatura" />
+                            <button id="btn-engadir-asignatura" class="btn btn-pequeno">+ Engadir</button>
+                        </div>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label>Apuntes:</label>
+                        <div id="lista-apuntes-edicion"></div>
+                        <div class="flex-row">
+                            <input type="text" id="nome-apunte" placeholder="Nome do apunte" />
+                            <button id="btn-engadir-apunte-texto" class="btn btn-pequeno">+ Texto</button>
+                            <input type="file" id="input-arquivo-apunte" class="oculto" accept=".txt,.pdf,.doc,.docx" />
+                            <button id="btn-engadir-apunte-arquivo" class="btn btn-pequeno">📎 Arquivo</button>
+                        </div>
+                    </div>
+
+                    <div class="botones-accion">
+                        <button id="btn-gardar-perfil" class="btn btn-primario">💾 Gardar cambios</button>
+                        <button id="btn-cancelar-edicion" class="btn btn-secundario">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista: Perfil doutro usuario -->
+        <div id="vista-perfil-usuario" class="vista oculto">
+            <button class="btn btn-secundario btn-volver">← Volver</button>
+
+            <div class="card">
+                <div class="perfil-cabeceira">
+                    <div class="perfil-cabeceira-info">
+                        <img id="outro-perfil-foto" class="foto-perfil-grande" src="" alt="">
+                        <div>
+                            <h2 id="outro-perfil-nome"></h2>
+                        </div>
+                    </div>
+                    <button id="btn-iniciar-chat" class="btn btn-primario">💬 Chatear</button>
+                </div>
+
+                <div class="seccion-perfil">
+                    <h4>Sobre el/ela</h4>
+                    <p id="outro-perfil-descricion" class="texto-placeholder">Sen descrición</p>
+                </div>
+
+                <div class="seccion-perfil">
+                    <h4>Asignaturas que domina</h4>
+                    <div id="outro-perfil-asignaturas" class="lista-asignaturas">
+                        <p class="texto-placeholder">Sen asignaturas</p>
+                    </div>
+                </div>
+
+                <div class="seccion-perfil">
+                    <h4>Apuntes compartidos</h4>
+                    <div id="outro-perfil-apuntes" class="lista-apuntes">
+                        <p class="texto-placeholder">Sen apuntes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista: Conversas/Chats -->
+        <div id="vista-conversas" class="vista oculto">
+            <h2>As miñas conversas</h2>
+            <div id="lista-conversas" class="lista-conversas">
+                <p class="texto-placeholder">Non tes conversas aínda. Visita o perfil dun usuario e inicia un chat!</p>
+            </div>
+        </div>
+
+        <!-- Vista: Chat individual -->
+        <div id="vista-chat" class="vista oculto">
+            <button class="btn btn-secundario btn-volver">← Volver ás conversas</button>
+
+            <div class="card chat-container">
+                <div class="chat-cabeceira">
+                    <h3 id="chat-nome-usuario"></h3>
+                </div>
+
+                <div id="chat-mensaxes" class="chat-mensaxes">
+                    <!-- As mensaxes aparecerán aquí -->
+                </div>
+
+                <div class="chat-entrada">
+                    <input type="text" id="chat-input" placeholder="Escribe unha mensaxe..." />
+                    <button id="btn-enviar-mensaxe" class="btn btn-primario">Enviar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para ver apuntes de texto -->
+        <div id="modal-apunte" class="modal oculto">
+            <div class="modal-contido">
+                <div class="modal-cabeceira">
+                    <h3 id="modal-apunte-titulo"></h3>
+                    <button class="btn-pechar-modal">&times;</button>
+                </div>
+                <div id="modal-apunte-contido" class="modal-corpo"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
