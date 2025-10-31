@@ -4,6 +4,12 @@
 
 **Xuntos** é unha aplicación web completamente en galego que permite a estudantes compartir perfís, apuntes e chatear entre eles. Agora con **autenticación segura** y **base de datos PostgreSQL** para persistencia completa de datos.
 
+Elaborado por: 
+- Xabier Nóvoa Gómez
+- César Poza González
+- Adrián Quiroga Linares
+- Pablo Mouriño Lorenzo
+
 ## ✨ Características Principais
 
 ✅ **Sistema de Autenticación**
